@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -110,8 +111,10 @@ public class ERWatchface extends CanvasWatchFaceService {
         private boolean mLowBitAmbient;
         private boolean mBurnInProtection;
 
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.watchface_preferences) ,Context.MODE_PRIVATE);
+
         private ArrayList<I_Drawable_Watchface> mWatchfaces;
-        private int mWatchFaceFocus = 1;
+        private int mWatchFaceFocus = sharedPref.getInt(getString(R.string.watchface_focus), 0);
 
         @Override
         public void onCreate(SurfaceHolder holder) {
@@ -251,11 +254,15 @@ public class ERWatchface extends CanvasWatchFaceService {
                     break;
                 case TAP_TYPE_TAP:
                     // The user has completed the tap gesture.
-                    // TODO: Add code to handle the tap gesture.
-                    Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT)
-                            .show();
+                    if (x > (mSmallFaceCenterX-mSmallFaceRadius) && x < (mSmallFaceCenterX+mSmallFaceRadius) && y > (mSmallFaceCenterY-mSmallFaceRadius) && y < (mSmallFaceCenterY+mSmallFaceRadius)) {
+                        mWatchFaceFocus = (mWatchFaceFocus + 1) % mWatchfaces.size();
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(getString(R.string.watchface_focus), mWatchFaceFocus);
+                        editor.apply();
+                    }
                     break;
             }
+
             invalidate();
         }
 
