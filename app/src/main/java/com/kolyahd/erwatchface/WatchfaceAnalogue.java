@@ -25,10 +25,10 @@ public class WatchfaceAnalogue implements I_Drawable_Watchface{
     private Paint mSecondPaint;
     private Paint mTickAndCirclePaint;
 
-    private static final float HOUR_STROKE_WIDTH_RATIO = (5f / 160f);
-    private static final float MINUTE_STROKE_WIDTH_RATIO = (3f / 160f);
-    private static final float SECOND_TICK_STROKE_WIDTH_RATIO = (2f / 160f);
-    private static final float CENTER_GAP_AND_CIRCLE_RADIUS_RATIO = (4f / 160f);
+    private static final float HOUR_STROKE_WIDTH_RATIO = (10f / 160f);
+    private static final float MINUTE_STROKE_WIDTH_RATIO = (6f / 160f);
+    private static final float SECOND_TICK_STROKE_WIDTH_RATIO = (4f / 160f);
+    private static final float CENTER_GAP_AND_CIRCLE_RADIUS_RATIO = (8f / 160f);
     private static final float SHADOW_RADIUS_RATIO = (6f / 160f);
 
     @Override

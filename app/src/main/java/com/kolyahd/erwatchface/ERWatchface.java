@@ -199,9 +199,9 @@ public class ERWatchface extends CanvasWatchFaceService {
              */
             mCenterX = width / 2f;
             mCenterY = height / 2f;
-            mSmallFaceCenterX = mCenterX * 1.3f;
-            mSmallFaceCenterY = mCenterY * 1.2f;
-            mSmallFaceRadius = mCenterX * 0.3f;
+            mSmallFaceCenterX = mCenterX * 1.5f;
+            mSmallFaceCenterY = mCenterY * 1.5f;
+            mSmallFaceRadius = mCenterX * 0.25f;
 
             /* Scale loaded background image (more efficient) if surface dimensions change. */
             float scale = ((float) width) / (float) mBackgroundBitmap.getWidth();
@@ -283,14 +283,18 @@ public class ERWatchface extends CanvasWatchFaceService {
                 canvas.drawBitmap(mGrayBackgroundBitmap, 0, 0, mBackgroundPaint);
             } else {
                 canvas.drawBitmap(mBackgroundBitmap, 0, 0, mBackgroundPaint);
+//                Paint paint = new Paint();
+//                paint.setStyle(Paint.Style.FILL);
+//                paint.setColor(Color.DKGRAY);
+//                canvas.drawCircle(mSmallFaceCenterX, mSmallFaceCenterY, mSmallFaceRadius, paint);
             }
         }
 
         private void drawWatchFaces(Canvas canvas, float centerX, float centerY, float radius) {
-            mWatchfaces.get(mWatchFaceFocus).draw(canvas, mCalendar, centerX, centerY, radius, mAmbient, mMuteMode);
             if (!mAmbient) {
                 mWatchfaces.get((mWatchFaceFocus + 1) % (mWatchfaces.size())).draw(canvas, mCalendar, mSmallFaceCenterX, mSmallFaceCenterY, mSmallFaceRadius, mAmbient, mMuteMode);
             }
+            mWatchfaces.get(mWatchFaceFocus).draw(canvas, mCalendar, centerX, centerY, radius, mAmbient, mMuteMode);
         }
 
         @Override

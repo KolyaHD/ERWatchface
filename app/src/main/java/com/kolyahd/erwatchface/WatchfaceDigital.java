@@ -18,7 +18,7 @@ public class WatchfaceDigital implements I_Drawable_Watchface{
     private final String TAG = "WF_Digital";
 
     private Paint mDigitPaint;
-    private int mWatchDigitColor;
+    private Color mWatchDigitColor;
     private int mWatchDigitShadowColor;
     private static final float SHADOW_RADIUS_RATIO = (6f / 160f);
     private static final float TEXT_SIZE = 0.3f;
@@ -30,17 +30,17 @@ public class WatchfaceDigital implements I_Drawable_Watchface{
             @Override
             public void onGenerated(Palette palette) {
                 if (palette != null) {
-                    mWatchDigitColor = palette.getVibrantColor(Color.RED);
-                    mWatchDigitShadowColor = palette.getDarkMutedColor(Color.BLACK);
+                    mWatchDigitColor = Color.valueOf(1.0f, 0.97f, 0.85f, 0.56f);
+                    mWatchDigitShadowColor = palette.getLightVibrantColor(Color.WHITE);
                 }
             }
         });
 
         mDigitPaint = new Paint();
-        mDigitPaint.setColor(mWatchDigitColor);
+        mDigitPaint.setColor(0xF8D890);
         mDigitPaint.setAntiAlias(true);
         mDigitPaint.setTextAlign(Paint.Align.CENTER);
-        Typeface typeface = context.getResources().getFont(R.font.square_sans_serif_7);
+        Typeface typeface = context.getResources().getFont(R.font.digitaldreamfatnarrow);
         mDigitPaint.setTypeface(typeface);
         mDigitPaint.setFakeBoldText(true);
     }
@@ -59,6 +59,6 @@ public class WatchfaceDigital implements I_Drawable_Watchface{
         float desiredTextSize = TEXT_SIZE * radius;
         mDigitPaint.setTextSize(desiredTextSize);
 
-        canvas.drawText(textTime, centerX, centerY + (TEXT_SIZE * radius * 0.25f), mDigitPaint);
+        canvas.drawText(textTime, centerX, centerY + (TEXT_SIZE * radius * 0.3f), mDigitPaint);
     }
 }
